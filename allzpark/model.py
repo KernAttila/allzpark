@@ -920,7 +920,7 @@ class ProfileModel(AbstractTreeModel):
 
     def __init__(self, parent=None):
         super(ProfileModel, self).__init__(parent)
-        self.is_filtering = True
+        self.is_filtering = False
         self.current = ""
         self.favorites = set([])
 
