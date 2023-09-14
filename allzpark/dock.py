@@ -1537,12 +1537,8 @@ class ProfileView(QtWidgets.QTreeView):
         menu.show()
 
     def on_double_click(self, model_index):
-        index = self.selectedIndexes()[0]
-        if not index.isValid():
-            # Clicked outside any item
-            return
-        model_ = index.model()
-        name = str(model_.data(index, model.NameRole))
+        model_ = model_index.model()
+        name = str(model_.data(model_index, model.NameRole))
         self.on_activate(name)
 
     def on_activate(self, profile):
