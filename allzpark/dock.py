@@ -1514,7 +1514,7 @@ class ProfileView(QtWidgets.QTreeView):
         self.setSortingEnabled(True)
         self.sortByColumn(0, QtCore.Qt.AscendingOrder)
         self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-
+        self.doubleClicked.connect(self.on_double_click)
         self.customContextMenuRequested.connect(self.on_context_menu)
 
     def on_context_menu(self, position):
@@ -1535,6 +1535,15 @@ class ProfileView(QtWidgets.QTreeView):
 
         menu.move(QtGui.QCursor.pos())
         menu.show()
+
+    def on_double_click(self, model_index):
+        index = self.selectedIndexes()[0]
+        if not index.isValid():
+            # Clicked outside any item
+            return
+        model_ = index.model()
+        name = str(model_.data(index, model.NameRole))
+        self.on_activate(name)
 
     def on_activate(self, profile):
         self.activated.emit(profile)
